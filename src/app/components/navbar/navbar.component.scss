@@ -1,0 +1,33 @@
+.navbar {
+  margin: 20px 0;
+}
+
+.mat-toolbar.mat-primary {
+  --mat-toolbar-container-background-color: rgb(12, 77, 89);
+}
+
+.mat-toolbar {
+  border-radius: 4px;
+}
+
+.mat-toolbar-row {
+  justify-content: space-between;
+}
+
+.btn-group {
+	display: flex;
+}
+
+button .user-icon, button .logout-icon {
+  font-size: 2.125rem;
+  height: 2.125rem;
+  width: 2.125rem;
+}
+
+.homepage-link {
+	text-decoration: none;
+}
+
+.homepage-link:visited {
+	color: #FFF;
+}

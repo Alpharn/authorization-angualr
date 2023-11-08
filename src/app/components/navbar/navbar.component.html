@@ -1,0 +1,19 @@
+<div class="navbar">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span><a class="homepage-link" [routerLink]="['/dashboard']">Assessment App</a></span>
+      <div class="btn-group">
+        <div *ngIf="isAdmin$ | async" class="admin-panel">
+          <button mat-button (click)="goToAdminPage()">
+            <mat-icon class="user-icon">supervised_user_circle</mat-icon>
+            Users
+          </button>
+        </div>
+        <button mat-button (click)="logout()">
+          <mat-icon class="logout-icon">exit_to_app</mat-icon>
+          Sign Out
+        </button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>

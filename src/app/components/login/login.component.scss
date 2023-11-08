@@ -1,0 +1,22 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  margin: 100px 0px;
+}
+
+.login-form {
+  width: 250px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; 
+}
+
+.form-container {
+  display: flex;
+  align-items: center;
+}
+
+.mat-mdc-card-header {
+  font-size: 24px;
+}
