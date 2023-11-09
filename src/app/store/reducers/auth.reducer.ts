@@ -14,7 +14,6 @@ export interface AppState {
   assessments: IAssessment[] | null;
   assessmentGraph: IAssessmentGraph | null;
   loading: boolean;
-  error: string | null;
 }
 
 /**
@@ -26,7 +25,6 @@ export const initialState: AppState = {
   assessments: [],
   assessmentGraph: null,
   loading: false,
-  error: null,
 };
 
 /** appReducer is the main reducer function for handling state changes based on dispatched actions */
