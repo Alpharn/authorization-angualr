@@ -4,7 +4,7 @@
       <span><a class="homepage-link" [routerLink]="['/dashboard']">Assessment App</a></span>
       <div class="btn-group">
         <div *ngIf="isAdmin$ | async" class="admin-panel">
-          <button mat-button (click)="goToAdminPage()">
+          <button mat-button [routerLink]="['/admin']">
             <mat-icon class="user-icon">supervised_user_circle</mat-icon>
             Users
           </button>

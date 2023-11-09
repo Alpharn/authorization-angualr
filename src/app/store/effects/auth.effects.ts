@@ -16,6 +16,7 @@ export class AuthEffects {
     private router: Router
   ) {}
 
+  /** Effect for user login action */
   public login$ = createEffect(() =>
   this.actions$.pipe(
     ofType(AuthActions.login),
@@ -33,6 +34,7 @@ export class AuthEffects {
   )
   );
 
+  /** Effect for loading assessments action */
   public loadAssessments$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.loadAssessments),
@@ -45,6 +47,7 @@ export class AuthEffects {
     )
   );
 
+  /** Effect for loading users action */
   public loadUsers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.loadUsers),
@@ -57,6 +60,7 @@ export class AuthEffects {
     )
   );
 
+  /** Effect for loading a specific assessment graph */
   public loadAssessmentGraph$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.loadAssessmentGraph),

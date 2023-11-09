@@ -9,6 +9,10 @@ import * as AuthActions from 'src/app/store/actions/auth.actions';
 import { AppState } from 'src/app/store/reducers/auth.reducer';
 import { selectUsers } from 'src/app/store/selectors/auth.selectors';
 
+/**
+ * AdminPageComponent is responsible for displaying the list of users in a tabular format,
+ * specifically for administrative purposes. 
+ */
 @Component({
   selector: 'app-admin-page',
   templateUrl: './admin-page.component.html',
@@ -17,14 +21,23 @@ import { selectUsers } from 'src/app/store/selectors/auth.selectors';
 
 export class AdminPageComponent implements OnInit, AfterViewInit {
 
+  /** Columns to be displayed in the table. */
   displayedColumns: string[] = ['name', 'lastName', 'dateOfBirth', 'education', 'role', 'position'];
+
+  /** DataSource for the MatTable, containing the user data. */
   dataSource = new MatTableDataSource<IUser>([]);
+
+  /** Subject that emits when the component is destroyed to unsubscribe from observables. */
   private unsubscribe$ = new Subject<void>();
   
+  /** Reference to the paginator component, which provides pagination functionality for the table. */
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
   constructor(private store: Store<AppState>) {}
  
+  /**
+   * OnInit lifecycle hook to dispatch an action to load users and subscribe to the user data.
+   */
   ngOnInit(): void {
     this.store.dispatch(AuthActions.loadUsers());
     this.store.select(selectUsers)
@@ -34,10 +47,16 @@ export class AdminPageComponent implements OnInit, AfterViewInit {
       });
   }
 
+  /**
+   * AfterViewInit lifecycle hook to associate the paginator with the dataSource once the view is initialized.
+   */
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
+  /**
+   * OnDestroy lifecycle hook to ensure that all subscriptions are closed.
+   */
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();

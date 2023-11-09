@@ -3,6 +3,10 @@ import { createReducer, on } from '@ngrx/store';
 import * as AuthActions from '../actions/auth.actions';
 import { IUser, IAssessment, IAssessmentGraph } from 'src/app/interfaces/user.interface';
 
+/**
+ * AppState represents the state structure for the application, encapsulating user data,
+ * assessment information, and loading/error states.
+ */
 export interface AppState {
   user: IUser | null;
   users: IUser[];
@@ -12,6 +16,9 @@ export interface AppState {
   error: string | null;
 }
 
+/**
+ * initialState provides the initial value for the application's state before any actions have been dispatched.
+ */
 export const initialState: AppState = {
   user: null,
   users: [],
@@ -21,6 +28,7 @@ export const initialState: AppState = {
   error: null,
 };
 
+/** appReducer is the main reducer function for handling state changes based on dispatched actions */
 export const appReducer = createReducer(
   initialState,
   on(AuthActions.login, (state) => ({

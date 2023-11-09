@@ -6,6 +6,7 @@ import { AppState } from 'src/app/store/reducers/auth.reducer';
 import { login } from 'src/app/store/actions/auth.actions';
 import { ApiService } from 'src/app/services/api.service';
 
+/** LoginComponent is responsible for rendering a login form and handling user authentication */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,6 +14,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class LoginComponent {
 
+   /** FormGroup for the login form with input validations. */
   loginForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required]
@@ -23,7 +25,11 @@ export class LoginComponent {
     private apiService: ApiService,
     private store: Store<AppState>,
   ) {}
-
+  
+  /**
+   * Handles the login form submission. Dispatches a login action with email and password
+   * if the form is valid.
+   */  
   onLogin(): void {
     if (this.loginForm.invalid) {
       return;
