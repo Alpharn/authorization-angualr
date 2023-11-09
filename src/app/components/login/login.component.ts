@@ -35,7 +35,7 @@ export class LoginComponent {
       return;
     }
 
-    const { email, password } = this.loginForm.value;
+    const { email, password } = this.loginForm.getRawValue();
     this.store.dispatch(login({ email, password }));
   }
 
