@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import * as AuthActions from '../actions/auth.actions';
+import * as UserActions from '../actions/user.actions';
 import { IUser, IAssessment, IAssessmentGraph } from 'src/app/interfaces/user.interface';
 
 /**
@@ -44,42 +45,42 @@ export const appReducer = createReducer(
     ...state,
     loading: false
   })),
-  on(AuthActions.loadAssessments, (state) => ({
+  on(UserActions.loadAssessments, (state) => ({
     ...state,
     loading: true
   })),
-  on(AuthActions.loadAssessmentsSuccess, (state, { assessments }) => ({
+  on(UserActions.loadAssessmentsSuccess, (state, { assessments }) => ({
     ...state,
     assessments,
     loading: false
   })),
-  on(AuthActions.loadAssessmentsFailure, (state, { error }) => ({
+  on(UserActions.loadAssessmentsFailure, (state, { error }) => ({
     ...state,
     loading: false
   })),
-  on(AuthActions.loadUsers, state => ({
+  on(UserActions.loadUsers, state => ({
     ...state,
     loading: true
   })),
-  on(AuthActions.loadUsersSuccess, (state, { users }) => ({
+  on(UserActions.loadUsersSuccess, (state, { users }) => ({
     ...state,
     users,
     loading: false
   })),
-  on(AuthActions.loadUsersFailure, (state, { error }) => ({
+  on(UserActions.loadUsersFailure, (state, { error }) => ({
     ...state,
     loading: false
   })),
-  on(AuthActions.loadAssessmentGraph, (state) => ({
+  on(UserActions.loadAssessmentGraph, (state) => ({
     ...state,
     loading: true
   })),
-  on(AuthActions.loadAssessmentGraphSuccess, (state, { graphData }) => ({
+  on(UserActions.loadAssessmentGraphSuccess, (state, { graphData }) => ({
     ...state,
     assessmentGraph: graphData,
     loading: false
   })),
-  on(AuthActions.loadAssessmentGraphFailure, (state, { error }) => ({
+  on(UserActions.loadAssessmentGraphFailure, (state, { error }) => ({
     ...state,
     assessmentGraph: null,
     loading: false

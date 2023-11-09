@@ -5,7 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 
 import Chart from 'chart.js/auto';
 import { AppState } from 'src/app/store/reducers/auth.reducer';
-import * as AuthActions from 'src/app/store/actions/auth.actions';
+import * as UserActions from 'src/app/store/actions/user.actions';
 import { selectAssessmentGraph } from 'src/app/store/selectors/auth.selectors';
 import { IAssessmentGraph } from 'src/app/interfaces/user.interface';
 
@@ -43,7 +43,7 @@ export class GraphComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     const assessmentId = +this.route.snapshot.params['id'] - 1;
-    this.store.dispatch(AuthActions.loadAssessmentGraph({ assessmentId: assessmentId }));
+    this.store.dispatch(UserActions.loadAssessmentGraph({ assessmentId: assessmentId }));
 
     this.assessmentGraph$.pipe(takeUntil(this.destroy$)).subscribe(graphData => {
       if (graphData && this.canvas) {

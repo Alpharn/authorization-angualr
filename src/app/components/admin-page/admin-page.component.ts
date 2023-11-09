@@ -5,7 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { IUser } from 'src/app/interfaces/user.interface';
-import * as AuthActions from 'src/app/store/actions/auth.actions';
+import * as UserActions from 'src/app/store/actions/user.actions';
 import { AppState } from 'src/app/store/reducers/auth.reducer';
 import { selectUsers } from 'src/app/store/selectors/auth.selectors';
 
@@ -39,7 +39,7 @@ export class AdminPageComponent implements OnInit, AfterViewInit {
    * OnInit lifecycle hook to dispatch an action to load users and subscribe to the user data.
    */
   ngOnInit(): void {
-    this.store.dispatch(AuthActions.loadUsers());
+    this.store.dispatch(UserActions.loadUsers());
     this.store.select(selectUsers)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(users => {

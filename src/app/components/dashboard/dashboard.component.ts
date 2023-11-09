@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subject, takeUntil } from 'rxjs';
 
-import * as AuthActions from 'src/app/store/actions/auth.actions';
+import * as UserActions from 'src/app/store/actions/user.actions';
 import { AppState } from 'src/app/store/reducers/auth.reducer';
 import { selectAssessments } from 'src/app/store/selectors/auth.selectors';
 import { IAssessment } from 'src/app/interfaces/user.interface';
@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
    * assessment data changes.
    */
   ngOnInit(): void {
-    this.store.dispatch(AuthActions.loadAssessments());
+    this.store.dispatch(UserActions.loadAssessments());
     this.assessments$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(assessments => {
