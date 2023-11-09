@@ -7,12 +7,18 @@
         <mat-label>Email:</mat-label>
         <input matInput type="email" formControlName="email" required>
         <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Enter a valid email</mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('minlength') || loginForm.get('email')?.hasError('maxlength')">
+          Email length must be from 8 to 20 characters
+        </mat-error>
       </mat-form-field>
   
       <mat-form-field appearance="outline">
         <mat-label>Password:</mat-label>
         <input matInput type="password" formControlName="password" required>
         <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is required</mat-error>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('minlength') || loginForm.get('password')?.hasError('maxlength')">
+          Password length must be from 8 to 20 characters
+        </mat-error>
       </mat-form-field>
   
       <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Sign in</button>
