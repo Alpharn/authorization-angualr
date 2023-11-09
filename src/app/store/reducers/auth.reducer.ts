@@ -33,8 +33,7 @@ export const appReducer = createReducer(
   initialState,
   on(AuthActions.login, (state) => ({
     ...state,
-    loading: true,
-    error: null
+    loading: true
   })),
   on(AuthActions.loginSuccess, (state, { user }) => ({
     ...state,
@@ -43,13 +42,11 @@ export const appReducer = createReducer(
   })),
   on(AuthActions.loginFailure, (state, { error }) => ({
     ...state,
-    error: error,
     loading: false
   })),
   on(AuthActions.loadAssessments, (state) => ({
     ...state,
-    loading: true,
-    error: null
+    loading: true
   })),
   on(AuthActions.loadAssessmentsSuccess, (state, { assessments }) => ({
     ...state,
@@ -58,13 +55,11 @@ export const appReducer = createReducer(
   })),
   on(AuthActions.loadAssessmentsFailure, (state, { error }) => ({
     ...state,
-    error: error,
     loading: false
   })),
   on(AuthActions.loadUsers, state => ({
     ...state,
-    loading: true,
-    error: null
+    loading: true
   })),
   on(AuthActions.loadUsersSuccess, (state, { users }) => ({
     ...state,
@@ -73,13 +68,11 @@ export const appReducer = createReducer(
   })),
   on(AuthActions.loadUsersFailure, (state, { error }) => ({
     ...state,
-    error: error,
     loading: false
   })),
   on(AuthActions.loadAssessmentGraph, (state) => ({
     ...state,
-    loading: true,
-    error: null
+    loading: true
   })),
   on(AuthActions.loadAssessmentGraphSuccess, (state, { graphData }) => ({
     ...state,
@@ -89,7 +82,6 @@ export const appReducer = createReducer(
   on(AuthActions.loadAssessmentGraphFailure, (state, { error }) => ({
     ...state,
     assessmentGraph: null,
-    error: error,
     loading: false
   })),
 );
