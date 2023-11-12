@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { MatPaginator } from '@angular/material/paginator';
+import {PageEvent, MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 
+import { PaginationService } from 'src/app/services/pagination.service';
 import * as UserActions from 'src/app/store/actions/user.actions';
 import { AppState } from 'src/app/store/reducers/auth.reducer';
 import { selectAssessments } from 'src/app/store/selectors/auth.selectors';
@@ -36,7 +37,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   constructor(
     private store: Store<AppState>,
-    private router: Router
+    private router: Router,
+    private paginationService: PaginationService
   ) {}
 
   /**
@@ -44,12 +46,23 @@ export class DashboardComponent implements OnInit, AfterViewInit {
    * assessment data changes.
    */
   ngOnInit(): void {
-    this.store.dispatch(UserActions.loadAssessments());
     this.assessments$
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(assessments => {
-        this.dataSource.data = assessments;
-      });
+    .pipe(
+      takeUntil(this.unsubscribe$),
+      tap(() => {
+        const pageSize = this.paginationService.getPageSize();
+        const pageIndex = this.paginationService.getPageIndex();
+        if (this.paginator) {
+          this.paginator.pageSize = pageSize;
+          this.paginator.pageIndex = pageIndex;
+        }
+      })
+    )
+    .subscribe(assessments => {
+      this.dataSource.data = assessments;
+    });
+    
+    this.store.dispatch(UserActions.loadAssessments());
   }
 
   /** AfterViewInit lifecycle hook to set the paginator for the table's DataSource */
@@ -76,4 +89,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/graph', assessmentId]);
   }
 
+  /**
+   * Handles the pagination change event. 
+   * Updates the page size and current page index in the pagination service.
+   *
+   * @param event The page event containing information about the page size and the current page index.
+   */
+  onPageEvent(event: PageEvent): void {
+    this.paginationService.setPageSize(event.pageSize);
+    this.paginationService.setPageIndex(event.pageIndex);
+  }
+  
 }

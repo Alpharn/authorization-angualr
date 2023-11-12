@@ -48,7 +48,8 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let assessment; columns: displayedColumns;" (click)="onAssessmentClick(assessment.id, $event)"></tr>
       </table>
-      <mat-paginator class="paginator" 
+      <mat-paginator class="paginator"
+        (page)="onPageEvent($event)" 
         [pageSizeOptions]="[3, 5, 10]" 
         showFirstLastButtons
         aria-label="Select page">
