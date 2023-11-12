@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IUser, IAssessment, IAssessmentGraph } from 'src/app/interfaces/user.interface';
+import { IUser } from 'src/app/interfaces/user.interface';
 
 /** Login actions */ 
 export const login = createAction(
