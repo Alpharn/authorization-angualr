@@ -3,6 +3,9 @@
     <mat-toolbar-row>
       <span><a class="homepage-link" [routerLink]="['/dashboard']">Assessment App</a></span>
       <div class="btn-group">
+        <button *ngIf="showBackButton$ | async" mat-button (click)="goBackToDashboard()">
+          <mat-icon class="back-icon">arrow_back_ios</mat-icon> Back
+        </button>
         <div *ngIf="isAdmin$ | async" class="admin-panel">
           <button mat-button [routerLink]="['/admin']">
             <mat-icon class="user-icon">supervised_user_circle</mat-icon>
