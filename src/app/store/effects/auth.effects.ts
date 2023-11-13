@@ -7,6 +7,7 @@ import { of } from 'rxjs';
 import * as AuthActions from '../actions/auth.actions';
 import * as UserActions from '../actions/user.actions';
 import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Injectable()
 export class AuthEffects {
@@ -14,6 +15,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private apiService: ApiService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
@@ -22,7 +24,7 @@ export class AuthEffects {
   this.actions$.pipe(
     ofType(AuthActions.login),
     switchMap(({ email, password }) =>
-      this.apiService.login(email, password).pipe(
+      this.authService.login(email, password).pipe(
         tap((user) => {
           localStorage.setItem('token', user.token);
           localStorage.setItem('role', user.role);

@@ -6,13 +6,14 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { GraphComponent } from './components/graph/graph.component';
 import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
+import { RoutePath } from "../app/constants/routes";
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
-  { path: 'admin', component: AdminPageComponent, canActivate: [authGuard, adminGuard] },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
-  { path: 'graph/:id', component: GraphComponent, canActivate: [authGuard] }
+  { path: '', redirectTo: `/${RoutePath.Login}`, pathMatch: 'full' },
+  { path: RoutePath.Login, loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+  { path: RoutePath.Admin, component: AdminPageComponent, canActivate: [authGuard, adminGuard] },
+  { path: RoutePath.Dashboard, component: DashboardComponent, canActivate: [authGuard] },
+  { path: RoutePath.Graph, component: GraphComponent, canActivate: [authGuard] }
 ];
 
 @NgModule({

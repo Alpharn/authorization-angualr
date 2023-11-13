@@ -1,7 +1,7 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 
-import { ApiService } from '../services/api.service';
+import { AuthService } from '../auth/services/auth.service';
 
 /**
  * Guard function that checks if the current user has an admin role.
@@ -11,10 +11,10 @@ import { ApiService } from '../services/api.service';
  *          for admin users.
  */
 export const adminGuard: CanActivateFn = () => {
-    const apiService = inject(ApiService);
+    const authService = inject(AuthService);
     const router = inject(Router);
   
-    if (apiService.isAdmin()) {
+    if (authService.isAdmin()) {
       return true;
     } else {
       router.navigate(['/dashboard']); 
