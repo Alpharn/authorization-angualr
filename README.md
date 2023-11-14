@@ -1,5 +1,7 @@
 # AuthorizationAngular
 
+Deploy link: https://alpharn.github.io/authorization-angular
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.7.
 
 ## Development server

@@ -1,0 +1,22 @@
+<div class="navbar">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Assessment App</span>
+      <div class="btn-group">
+        <button *ngIf="showBackButton$ | async" mat-button (click)="goBack()">
+          <mat-icon class="back-icon">arrow_back_ios</mat-icon> Back
+        </button>
+        <div *ngIf="isAdmin$ | async" class="admin-panel">
+          <button mat-button [routerLink]="['/admin']">
+            <mat-icon class="user-icon">supervised_user_circle</mat-icon>
+            Users
+          </button>
+        </div>
+        <button mat-button (click)="logout()">
+          <mat-icon class="logout-icon">exit_to_app</mat-icon>
+          Sign Out
+        </button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
