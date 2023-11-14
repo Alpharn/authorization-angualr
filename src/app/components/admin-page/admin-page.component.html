@@ -1,7 +1,7 @@
 <div class="users-list-container">
   
   <app-navbar></app-navbar>
-  <ng-container *ngIf="dataSource">
+  
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!-- Name Column -->
@@ -44,6 +44,5 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
     <mat-paginator class="paginator" [pageSizeOptions]="[3, 5, 10]" [pageSize]="10" showFirstLastButtons></mat-paginator>
-  </ng-container>
   
 </div>
