@@ -4,8 +4,8 @@ $primary-color: rgb(12, 77, 89);
   margin: 20px 0;
 }
 
-.mat-toolbar.mat-primary {
-  --mat-toolbar-container-background-color: $base-color;
+.navbar .mat-toolbar.mat-primary {
+  background-color: $primary-color;
 }
 
 .mat-toolbar {
