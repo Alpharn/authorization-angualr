@@ -4,9 +4,9 @@ import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
 
 import Chart from 'chart.js/auto';
-import { AppState } from 'src/app/store/reducers/auth.reducer';
-import * as UserActions from 'src/app/store/actions/user.actions';
-import { selectAssessmentGraph } from 'src/app/store/selectors/auth.selectors';
+import { UserState } from 'src/app/store/user/user.state';
+import * as UserActions from 'src/app/store/user/actions/user.actions';
+import { selectAssessmentGraph } from 'src/app/store/user/selectors/user.selectors';
 import { IAssessmentGraph } from 'src/app/interfaces/user.interface';
 
 /**
@@ -33,7 +33,7 @@ export class GraphComponent implements OnInit, OnDestroy {
   @ViewChild('canvas') canvas: ElementRef<HTMLCanvasElement> | undefined;
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<UserState>,
     private route: ActivatedRoute
   ) {}
 

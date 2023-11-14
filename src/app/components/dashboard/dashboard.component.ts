@@ -5,10 +5,11 @@ import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subject, takeUntil, tap } from 'rxjs';
 
-import * as UserActions from 'src/app/store/actions/user.actions';
-import { AppState } from 'src/app/store/reducers/auth.reducer';
-import { selectAssessments } from 'src/app/store/selectors/auth.selectors';
+import { selectAssessments } from 'src/app/store/user/selectors/user.selectors';
 import { IAssessment } from 'src/app/interfaces/user.interface';
+import { UserState } from 'src/app/store/user/user.state';
+import * as UserActions from 'src/app/store/user/actions/user.actions';
+
 
 /** DashboardComponent is responsible for displaying a list of assessments in a table format */
 @Component({
@@ -38,7 +39,7 @@ export class DashboardComponent implements OnInit {
 
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<UserState>,
     private router: Router,
     private route: ActivatedRoute,
   ) {}

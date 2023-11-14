@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Store } from '@ngrx/store';
 
-import { AppState } from 'src/app/store/reducers/auth.reducer';
-import { login } from 'src/app/store/actions/auth.actions';
-
+import { AuthState } from 'src/app/store/auth/auth.state';
+import * as AuthActions from '../../store/auth/actions/auth.actions';
 /** LoginComponent is responsible for rendering a login form and handling user authentication */
 @Component({
   selector: 'app-login',
@@ -21,7 +20,7 @@ export class LoginComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store<AppState>,
+    private store: Store<AuthState>,
   ) {}
   
   /**
@@ -33,7 +32,7 @@ export class LoginComponent {
       return;
     }
 
-    this.store.dispatch(login(this.loginForm.getRawValue()));
+    this.store.dispatch(AuthActions.login(this.loginForm.getRawValue()));
   }
 
 }

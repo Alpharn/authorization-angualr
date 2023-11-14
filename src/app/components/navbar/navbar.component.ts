@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { Store, select } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
 
-import { AppState } from 'src/app/store/reducers/auth.reducer';
+import { AuthState } from 'src/app/store/auth/auth.state';
 
 /** NavbarComponent is responsible for rendering the navigation bar at the top of the application */
 @Component({
@@ -28,7 +28,7 @@ export class NavbarComponent {
   );
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<AuthState>,
     private router: Router,
     private location: Location
   ) {}

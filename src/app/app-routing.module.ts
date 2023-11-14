@@ -10,7 +10,7 @@ import { graphGuard } from './guards/graph.guard';
 import { RoutePath } from "../app/constants/routes";
 
 const routes: Routes = [
-  { path: '', redirectTo: `/${RoutePath.Login}`, pathMatch: 'full' },
+  { path: '', redirectTo: RoutePath.Login, pathMatch: 'full' },
   { path: RoutePath.Login, loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
   { path: RoutePath.Admin, component: AdminPageComponent, canActivate: [authGuard, adminGuard] },
   { path: RoutePath.Dashboard, component: DashboardComponent, canActivate: [authGuard] },

@@ -23,8 +23,9 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { AuthEffects } from "./store/effects/auth.effects";
-import { appReducer } from './store/reducers/auth.reducer';
+import { AuthEffects } from './store/auth/effects/auth.effects';
+import { UserEffects } from './store/user/effects/user.effects';
+import { appReducers } from './store/app.state';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
@@ -49,9 +50,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
-    StoreModule.forRoot({ app: appReducer }),
-    EffectsModule.forRoot([AuthEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
+    StoreModule.forRoot(appReducers),
+    EffectsModule.forRoot([AuthEffects, UserEffects]),
+    StoreDevtoolsModule.instrument({})
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}

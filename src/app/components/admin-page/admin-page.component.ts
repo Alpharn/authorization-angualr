@@ -5,9 +5,9 @@ import { Subject, takeUntil } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { IUser } from 'src/app/interfaces/user.interface';
-import * as UserActions from 'src/app/store/actions/user.actions';
-import { AppState } from 'src/app/store/reducers/auth.reducer';
-import { selectUsers } from 'src/app/store/selectors/auth.selectors';
+import * as UserActions from 'src/app/store/user/actions/user.actions';
+import { UserState } from 'src/app/store/user/user.state';
+import { selectUsers } from 'src/app/store/user/selectors/user.selectors';
 
 /**
  * AdminPageComponent is responsible for displaying the list of users in a tabular format,
@@ -33,7 +33,7 @@ export class AdminPageComponent implements OnInit, AfterViewInit {
   /** Reference to the paginator component, which provides pagination functionality for the table. */
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<UserState>) {}
  
   /**
    * OnInit lifecycle hook to dispatch an action to load users and subscribe to the user data.
