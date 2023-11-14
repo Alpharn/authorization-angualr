@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { Store, select } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
 
@@ -20,12 +21,16 @@ export class NavbarComponent {
 
   /** Observable that determines if the back button should be shown based on the current URL. */  
   showBackButton$: Observable<boolean> = this.router.events.pipe(
-    map(event => this.router.url !== '/dashboard')
+    map(() => {
+      const url = this.router.url;
+      return url.includes('/graph') || url.includes('/admin');
+    })
   );
 
   constructor(
     private store: Store<AppState>,
     private router: Router,
+    private location: Location
   ) {}
    
   /** Logs out the current user by clearing the local storage and navigating to the login page */
@@ -35,8 +40,8 @@ export class NavbarComponent {
   }
   
   /** Navigates user to the dashboard page from other pages */
-  goBackToDashboard(): void {
-    this.router.navigate(['/dashboard']);
+  goBack(): void {
+    this.location.back();
   }
 
 }

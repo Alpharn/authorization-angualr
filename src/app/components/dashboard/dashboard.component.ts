@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import {PageEvent, MatPaginator } from '@angular/material/paginator';
+import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subject, takeUntil, tap } from 'rxjs';
 
-import { PaginationService } from 'src/app/services/pagination.service';
 import * as UserActions from 'src/app/store/actions/user.actions';
 import { AppState } from 'src/app/store/reducers/auth.reducer';
 import { selectAssessments } from 'src/app/store/selectors/auth.selectors';
@@ -18,7 +17,7 @@ import { IAssessment } from 'src/app/interfaces/user.interface';
   styleUrls: ['./dashboard.component.scss']
 })
 
-export class DashboardComponent implements OnInit, AfterViewInit {
+export class DashboardComponent implements OnInit {
 
   /** Observable stream of assessment data from the store. */
   assessments$ = this.store.select(selectAssessments);
@@ -26,19 +25,23 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   /** Columns displayed in the table. */
   displayedColumns: string[] = ['id', 'name', 'image', 'usersResolved', 'active', 'report'];
 
-   /** DataSource for MatTable that contains the data to display. */
+  /** DataSource for MatTable that contains the data to display. */
   dataSource = new MatTableDataSource<IAssessment>([]);
 
   /** Subject used to trigger the unsubscription of observables on component destruction. */ 
   private unsubscribe$ = new Subject<void>();
-
+  
+  page = this.route.snapshot.queryParamMap.get('pageIndex');
+  pageSize = this.route.snapshot.queryParamMap.get('pageSize');
+  
   /** Reference to the paginator component used to paginate the table. */ 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
 
   constructor(
     private store: Store<AppState>,
     private router: Router,
-    private paginationService: PaginationService
+    private route: ActivatedRoute,
   ) {}
 
   /**
@@ -46,28 +49,19 @@ export class DashboardComponent implements OnInit, AfterViewInit {
    * assessment data changes.
    */
   ngOnInit(): void {
-    this.assessments$
-    .pipe(
-      takeUntil(this.unsubscribe$),
-      tap(() => {
-        const pageSize = this.paginationService.getPageSize();
-        const pageIndex = this.paginationService.getPageIndex();
-        if (this.paginator) {
-          this.paginator.pageSize = pageSize;
-          this.paginator.pageIndex = pageIndex;
-        }
-      })
-    )
-    .subscribe(assessments => {
-      this.dataSource.data = assessments;
-    });
-    
     this.store.dispatch(UserActions.loadAssessments());
-  }
 
-  /** AfterViewInit lifecycle hook to set the paginator for the table's DataSource */
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    this.assessments$.pipe(takeUntil(this.unsubscribe$)).subscribe((assessment) => {
+
+      this.dataSource.data = assessment;
+
+      if (this.paginator) {
+        this.paginator.pageIndex = this.page;
+        this.paginator.pageSize = this.pageSize;
+        this.dataSource.paginator = this.paginator;
+      }
+    });
+   
   }
 
   /** OnDestroy lifecycle hook to complete the unsubscribe$ Subject, ensuring no memory leaks */
@@ -90,14 +84,21 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Handles the pagination change event. 
-   * Updates the page size and current page index in the pagination service.
+   * Updates the route query parameters based on the page event from the paginator.
+   * This function is triggered when the page index or page size of the paginator changes.
+   * It updates the URL with the new pagination parameters.
    *
-   * @param event The page event containing information about the page size and the current page index.
+   * @param event The PageEvent emitted by the MatPaginator component.
    */
-  onPageEvent(event: PageEvent): void {
-    this.paginationService.setPageSize(event.pageSize);
-    this.paginationService.setPageIndex(event.pageIndex);
+  updateRoute(event: PageEvent): void {
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: {
+          pageIndex: event.pageIndex,
+          pageSize: event.pageSize
+        },
+        queryParamsHandling: 'merge', 
+      });
   }
   
 }

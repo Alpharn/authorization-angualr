@@ -1,9 +1,11 @@
+$primary-color: rgb(12, 77, 89);
+
 .navbar {
   margin: 20px 0;
 }
 
 .mat-toolbar.mat-primary {
-  --mat-toolbar-container-background-color: rgb(12, 77, 89);
+  --mat-toolbar-container-background-color: $base-color;
 }
 
 .mat-toolbar {
@@ -33,12 +35,4 @@ button .back-icon {
   font-size: 2.0rem;
   height: 2.125rem;
   width: 2.125rem;
-}
-
-.homepage-link {
-  text-decoration: none;
-}
-
-.homepage-link:visited {
-  color: #FFF;
 }

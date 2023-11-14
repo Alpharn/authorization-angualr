@@ -4,6 +4,7 @@
 
     <div *ngIf="dataSource as assessments">
     <div class="table-container">
+      
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
         <!-- ID Column -->
         <ng-container matColumnDef="id">
@@ -49,8 +50,10 @@
         <tr mat-row *matRowDef="let assessment; columns: displayedColumns;" (click)="onAssessmentClick(assessment.id, $event)"></tr>
       </table>
       <mat-paginator class="paginator"
-        (page)="onPageEvent($event)" 
-        [pageSizeOptions]="[3, 5, 10]" 
+        (page)="updateRoute($event)" 
+        [pageSizeOptions]="[3, 5, 10]"
+        pageSize="3"
+        pageIndex="0" 
         showFirstLastButtons
         aria-label="Select page">
       </mat-paginator>
