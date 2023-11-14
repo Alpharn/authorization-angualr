@@ -1,7 +1,8 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 
-import { AuthService } from '../auth/services/auth.service';
+import { AuthService } from '../services/auth.service';
+import { RoutePath } from 'src/app/constants/routes';
 
 /**
  * Authentication guard function that checks for the presence of a token indicating
@@ -14,7 +15,7 @@ export const authGuard: CanActivateFn = () => {
   if (token) {
     return true;
   } else {
-    inject(Router).navigate(['/login']);
+    inject(Router).navigate([RoutePath.Login]);
     return false;
   }
 };

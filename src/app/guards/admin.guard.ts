@@ -2,6 +2,7 @@ import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 
 import { AuthService } from '../auth/services/auth.service';
+import { RoutePath } from 'src/app/constants/routes';
 
 /**
  * Guard function that checks if the current user has an admin role.
@@ -17,7 +18,7 @@ export const adminGuard: CanActivateFn = () => {
     if (authService.isAdmin()) {
       return true;
     } else {
-      router.navigate(['/dashboard']); 
+      router.navigate([RoutePath.Dashboard]); 
       return false;
     }
   };

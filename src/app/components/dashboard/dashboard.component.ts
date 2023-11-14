@@ -33,7 +33,6 @@ export class DashboardComponent implements OnInit {
   
   page = this.route.snapshot.queryParamMap.get('pageIndex');
   pageSize = this.route.snapshot.queryParamMap.get('pageSize');
-  
   /** Reference to the paginator component used to paginate the table. */ 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
